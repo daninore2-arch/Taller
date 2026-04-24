@@ -70,25 +70,24 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
 .dim-blk-hdr{display:flex;align-items:center;gap:10px;padding:11px 15px;border-radius:10px 10px 0 0;border-left:4px solid var(--dbc)}
 .dbn{width:24px;height:24px;border-radius:50%;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .dbname{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--t1)}
-.dbanch{font-size:10px;color:var(--t2)}
 .qcard{background:#fff;padding:15px 16px;border-left:3px solid var(--dbc);margin-bottom:2px;border-radius:0 0 10px 0;}
 .qcard-meta{display:flex;align-items:center;gap:6px;margin-bottom:6px}
 .qtag{font-size:10px;font-weight:600;color:var(--dbc);padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px}
 .qtitle-small{font-size:11px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.3px}
 .qtext{font-size:14px;font-weight:500;color:var(--t1);line-height:1.6;margin-bottom:11px}
 .lk-anchors{display:flex;justify-content:space-between;margin-bottom:5px}
-.lk-a{font-size:10px;color:var(--t3);max-width:45%;line-height:1.3}
+.lk-a{font-size:10px;font-weight:600;color:var(--t3);max-width:45%;line-height:1.3}
 .lk-a.r{text-align:right}
-.lk-scale{display:flex;gap:5px}
+.lk-scale{display:flex;gap:5px;align-items:stretch}
 .lk-opt{flex:1}
 .lk-opt input{display:none}
-.lk-opt label{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 3px;border-radius:8px;border:1.5px solid var(--border);cursor:pointer;background:var(--bg);min-height:50px;transition:all .15s}
+.lk-opt label{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:10px 4px;border-radius:8px;border:1.5px solid var(--border);cursor:pointer;background:var(--bg);min-height:54px;height:100%;transition:all .15s}
 .lk-opt label:hover{border-color:var(--dbc)}
 .lk-opt input:checked+label{border-color:var(--dbc);background:var(--dbc)}
-.lk-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;color:var(--t2)}
-.lk-sub{font-size:9px;color:var(--t3);text-align:center;margin-top:2px;line-height:1.2}
+.lk-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;color:var(--sc, var(--t2))}
+.lk-sub{font-size:9px;color:var(--t3);text-align:center;margin-top:5px;line-height:1.15}
 .lk-opt input:checked+label .lk-num{color:#fff}
-.lk-opt input:checked+label .lk-sub{color:rgba(255,255,255,.75)}
+.lk-opt input:checked+label .lk-sub{color:rgba(255,255,255,.9)}
 
 /* TEXTAREA ADDITION */
 .ftextarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--t1);background:#fff;outline:none;transition:border-color .2s;resize:vertical;min-height:70px;margin-top:5px}
@@ -303,9 +302,10 @@ const DIMS=[
 ];
 
 const ICONS=['⚖️','🎯','🔭','🚀'];
-const SLABELS=['Incipiente','Bajo','Moderado','Alto','Óptimo'];
+// Arreglo de colores para la escala gradual (De Rojo a Verde)
+const SCOLORS = ['#C8332A', '#E8641B', '#D68000', '#5CB836', '#00A651']; 
 
-// Solo 4 preguntas (1 por dimensión)
+// 4 preguntas (1 por dimensión)
 const QS=[
   {dim:1,num:1,title:'Evaluación de la Dimensión', text:'¿Cómo evalúa el proceso de toma de decisiones en el contexto del Grupo?', a1:'Fragmentada y reactiva', a5:'Base coherente'},
   {dim:2,num:2,title:'Evaluación de la Dimensión', text:'¿Cómo percibe la dirección y distribución de los esfuerzos de los equipos?', a1:'Falta de enfoque y energía disipada', a5:'Esfuerzos alineados y cohesión'},
@@ -324,7 +324,7 @@ const LEVELS=[
 function getLevel(s){return LEVELS.find(l=>s>=l.min&&s<=l.max)||LEVELS[0]}
 
 /* ---- STORAGE (GOOGLE SHEETS) ---- */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmYgt-HCaQPnN4LUilyvz6CtDfqii6hkExQhnkLMVedvYk1MmDnn5bSY2CR9kAXATL/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLGmZWt9EbeXBxswCfOrGm17K-3psnmNyqjrLS2z_yRagWZAULUIPL1PFlmRm4tiGz/exec";
 
 async function getResponses(){
   try {
@@ -351,8 +351,6 @@ async function getResponses(){
 
 async function saveResponse(resp){
   try {
-    // Nota: El objeto ahora incluye "comments", puedes adaptar tu script de Google Sheets 
-    // para recibirlos si lo deseas. Las lógicas originales seguirán funcionando.
     await fetch(SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
@@ -420,7 +418,7 @@ function startSurvey(){
 function buildSurvey(){
   let html='';
   DIMS.forEach((dim,di)=>{
-    const q=QS.find(q=>q.dim===dim.id); // Solo 1 pregunta por dimensión ahora
+    const q=QS.find(q=>q.dim===dim.id); 
     const qi=di+1;
     
     html+=`<div class="dim-block">
@@ -428,24 +426,28 @@ function buildSurvey(){
         <div class="dbn" style="background:${dim.color}">${qi}</div>
         <div>
           <div class="dbname">${ICONS[di]} ${dim.name}</div>
-          <div class="dbanch">1 = ${dim.a1} &nbsp;/&nbsp; 5 = ${dim.a5}</div>
         </div>
       </div>
       
       <div class="qcard" style="--dbc:${dim.color}">
         <div class="qtext">${q.text}</div>
         <div class="lk-anchors">
-          <div class="lk-a">${q.a1}</div>
-          <div class="lk-a r">${q.a5}</div>
+          <div class="lk-a">Ausencia del núcleo</div>
+          <div class="lk-a r">Presencia del núcleo</div>
         </div>
         <div class="lk-scale">`;
         
     for(let v=1;v<=5;v++){
+      // Lógica para que el texto solo aparezca en 1 y 5
+      let subText = '';
+      if(v === 1) subText = q.a1;
+      else if(v === 5) subText = q.a5;
+
       html+=`<div class="lk-opt">
         <input type="radio" name="q${qi}" value="${v}" id="q${qi}-${v}">
-        <label for="q${qi}-${v}" style="--dbc:${dim.color}">
+        <label for="q${qi}-${v}" style="--dbc:${SCOLORS[v-1]}; --sc:${SCOLORS[v-1]}">
           <span class="lk-num">${v}</span>
-          <span class="lk-sub">${SLABELS[v-1]}</span>
+          ${subText ? `<span class="lk-sub">${subText}</span>` : ''}
         </label>
       </div>`;
     }
@@ -482,7 +484,6 @@ async function submitSurvey(){
   document.getElementById('btn-submit').innerText = "Guardando en la nube...";
   document.getElementById('btn-submit').disabled = true;
 
-  // En la nueva lógica de 4 preguntas, el score de la dimensión es simplemente su respuesta
   const dimScores=[...answers]; 
   const total=answers.reduce((a,b)=>a+b,0);
   
@@ -510,7 +511,7 @@ async function submitSurvey(){
 
   let bars='';
   DIMS.forEach((dim,i)=>{
-    const pct=Math.round((dimScores[i]/5)*100); // Ahora se divide sobre 5
+    const pct=Math.round((dimScores[i]/5)*100); 
     bars+=`<div style="margin-bottom:9px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
         <span style="font-size:12px;font-weight:500;color:#001640">${ICONS[i]} ${dim.name}</span>
@@ -577,14 +578,6 @@ function renderDashboard(responses){
       </div>
     </div>
 
-    <div class="resp-card">
-      <div class="resp-card-hdr">
-        <h3>Registro de participantes (${n})</h3>
-        <button class="btn-clr" onclick="clearAll()">🗑 Instrucciones para limpiar</button>
-      </div>
-      ${buildTable(responses)}
-    </div>
-
     <div class="matrix-card">
       <h3>Matriz de Interpretación de Resultados</h3>
       ${buildMatrix(Math.round(avgTotal))}
@@ -605,7 +598,7 @@ function buildRadar(avgDims){
     grid+=`<polygon points="${p}" fill="none" stroke="#D0DDF0" stroke-width="1"/>`;
   });
   const axes=pts.map(([ax,ay])=>`<line x1="${cx}" y1="${cy}" x2="${ax}" y2="${ay}" stroke="#D0DDF0" stroke-width="1"/>`).join('');
-  const vals=avgDims.map(v=>v/5); // Dividimos sobre 5, el nuevo máximo
+  const vals=avgDims.map(v=>v/5); 
   const dpts=pts.map(([ax,ay],i)=>[cx+(ax-cx)*vals[i],cy+(ay-cy)*vals[i]]);
   const dpoly=dpts.map(([x,y])=>`${x},${y}`).join(' ');
   const ldots=dpts.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="4.5" fill="${DIMS[i].color}" stroke="#fff" stroke-width="1.5"/>`).join('');
@@ -618,7 +611,7 @@ function buildRadar(avgDims){
 
 function buildBars(avgDims){
   return DIMS.map((d,i)=>{
-    const pct=Math.round((avgDims[i]/5)*100); // Actualizado a división por 5
+    const pct=Math.round((avgDims[i]/5)*100); 
     return `<div class="hbar-row">
       <div class="hbar-top">
         <div class="hbar-name">${ICONS[i]} ${d.name}</div>
@@ -627,22 +620,6 @@ function buildBars(avgDims){
       <div class="hbar-track"><div class="hbar-fill" style="width:${pct}%;background:${d.color}"></div></div>
     </div>`;
   }).join('');
-}
-
-function buildTable(responses){
-  const sorted=[...responses].sort((a,b)=>b.total-a.total);
-  const rows=sorted.map(r=>{
-    const lv=getLevel(r.total);
-    const dt=new Date(r.timestamp).toLocaleDateString('es-CO',{day:'2-digit',month:'short'});
-    const dcells=r.dimScores.map((s,i)=>`<td style="text-align:center;font-size:11px;font-weight:600;color:${DIMS[i].color}">${s}</td>`).join('');
-    return `<tr>
-      <td><strong style="font-size:12px">${r.name}</strong><br><span style="font-size:10px;color:#8098B5">${r.unidad}</span></td>
-      ${dcells}
-      <td><span class="schip" style="background:${lv.colorL};color:${lv.color}">${r.total}</span></td>
-      <td style="font-size:10px;color:#8098B5;white-space:nowrap">${dt}</td>
-    </tr>`;
-  }).join('');
-  return `<table class="rtable"><thead><tr><th>Participante</th>${DIMS.map(d=>`<th style="text-align:center">${d.name.split(' ')[0]}</th>`).join('')}<th>Total</th><th>Fecha</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 function buildMatrix(avg){
