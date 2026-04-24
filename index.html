@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EPM - Diagnóstico Núcleo Corporativo</title>
+<title>EPM - Núcleo Corporativo</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600&display=swap');
 
@@ -71,9 +71,6 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
 .dbn{width:24px;height:24px;border-radius:50%;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .dbname{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--t1)}
 .qcard{background:#fff;padding:15px 16px;border-left:3px solid var(--dbc);margin-bottom:2px;border-radius:0 0 10px 0;}
-.qcard-meta{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.qtag{font-size:10px;font-weight:600;color:var(--dbc);padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px}
-.qtitle-small{font-size:11px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.3px}
 .qtext{font-size:14px;font-weight:500;color:var(--t1);line-height:1.6;margin-bottom:11px}
 .lk-anchors{display:flex;justify-content:space-between;margin-bottom:5px}
 .lk-a{font-size:10px;font-weight:600;color:var(--t3);max-width:45%;line-height:1.3}
@@ -133,17 +130,6 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
 .hbar-val{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px}
 .hbar-track{height:7px;background:var(--bg);border-radius:4px;overflow:hidden}
 .hbar-fill{height:100%;border-radius:4px;transition:width .7s}
-.resp-card{background:#fff;border-radius:12px;padding:15px 17px;box-shadow:var(--sh);margin-bottom:14px;overflow-x:auto}
-.resp-card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.resp-card-hdr h3{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--t1)}
-.btn-clr{padding:5px 11px;border:1px solid var(--border);background:transparent;border-radius:6px;font-size:11px;color:var(--t3);cursor:pointer;transition:.2s}
-.btn-clr:hover{border-color:var(--red);color:var(--red)}
-.rtable{width:100%;border-collapse:collapse;min-width:520px}
-.rtable th{text-align:left;padding:6px 9px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--t3);border-bottom:1px solid var(--border)}
-.rtable td{padding:8px 9px;font-size:12px;color:var(--t1);border-bottom:1px solid var(--bg)}
-.rtable tr:last-child td{border-bottom:none}
-.rtable tr:hover td{background:var(--bg)}
-.schip{display:inline-flex;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
 .matrix-card{background:#fff;border-radius:12px;padding:15px 17px;box-shadow:var(--sh);margin-bottom:16px}
 .matrix-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--t1);margin-bottom:11px}
 .mrow{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border-radius:8px;border:1.5px solid var(--border);margin-bottom:7px;transition:.15s}
@@ -185,7 +171,7 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
     </svg>
     <div>
       <div class="hdr-title">Grupo EPM</div>
-      <div class="hdr-sub">Diagnóstico · Núcleo Corporativo</div>
+      <div class="hdr-sub">Núcleo Corporativo</div>
     </div>
   </div>
   <button class="hdr-btn hdr-btn-g" onclick="goToDashboard()">📊 Resultados grupales</button>
@@ -210,7 +196,7 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
       <line x1="36" y1="50" x2="24.5" y2="56.5" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
       <line x1="36" y1="40" x2="24.5" y2="33.5" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
     </svg>
-    <h1 class="land-h1">Diagnóstico de Madurez<br><em>Núcleo Corporativo</em></h1>
+    <h1 class="land-h1">Núcleo Corporativo</h1>
     <p class="land-p">Evalúe el grado de integración estratégica del Grupo EPM a través de 4 dimensiones clave. Sus respuestas cualitativas y cuantitativas contribuirán al diagnóstico grupal.</p>
     <div class="land-form-card">
       <div class="lfc-h2">
@@ -302,18 +288,16 @@ const DIMS=[
 ];
 
 const ICONS=['⚖️','🎯','🔭','🚀'];
-// Arreglo de colores para la escala gradual (De Rojo a Verde)
 const SCOLORS = ['#C8332A', '#E8641B', '#D68000', '#5CB836', '#00A651']; 
 
-// 4 preguntas (1 por dimensión)
+// Solo 4 preguntas (1 por dimensión)
 const QS=[
-  {dim:1,num:1,title:'Evaluación de la Dimensión', text:'¿Cómo evalúa el proceso de toma de decisiones en el contexto del Grupo?', a1:'Fragmentada y reactiva', a5:'Base coherente'},
+  {dim:1,num:1,title:'Evaluación de la Dimensión', text:'¿Cómo evalúa el proceso de toma de decisiones?', a1:'Fragmentada y reactiva', a5:'Base coherente'},
   {dim:2,num:2,title:'Evaluación de la Dimensión', text:'¿Cómo percibe la dirección y distribución de los esfuerzos de los equipos?', a1:'Falta de enfoque y energía disipada', a5:'Esfuerzos alineados y cohesión'},
   {dim:3,num:3,title:'Evaluación de la Dimensión', text:'¿Cuál considera que es el estado actual de nuestra visión organizacional?', a1:'Aislada en silos', a5:'Unida en una visión común'},
   {dim:4,num:4,title:'Evaluación de la Dimensión', text:'¿Cómo calificaría nuestra capacidad de despliegue e implementación estratégica?', a1:'Imposible y caótico', a5:'Implementación efectiva y adecuada'}
 ];
 
-// Niveles actualizados sobre 20 puntos máximo (4 preguntas x 5 pts)
 const LEVELS=[
   {min:4,max:8,name:'Fragmentación Crítica',color:'#C8332A',colorL:'#FDECEA', desc:'El núcleo es puramente nominal. Alto riesgo de ineficiencia operativa.'},
   {min:9,max:12,name:'Transición Reactiva',color:'#D68000',colorL:'#FEF3DC', desc:'Hay esfuerzos por unir la organización, pero los silos predominan en la cultura.'},
@@ -371,7 +355,7 @@ async function saveResponse(resp){
 }
 
 function clearAll(){
-  alert("Para limpiar los datos del tablero grupal, debes borrar las filas directamente en tu archivo de Google Sheets (dejando solo la Fila 1 de encabezados).");
+  alert("Para limpiar los datos del tablero grupal, debes borrar las filas directamente en tu archivo de Google Sheets.");
 }
 
 /* ---- VIEWS ---- */
@@ -438,7 +422,6 @@ function buildSurvey(){
         <div class="lk-scale">`;
         
     for(let v=1;v<=5;v++){
-      // Lógica para que el texto solo aparezca en 1 y 5
       let subText = '';
       if(v === 1) subText = q.a1;
       else if(v === 5) subText = q.a5;
@@ -481,7 +464,7 @@ async function submitSurvey(){
     comments.push(document.getElementById(`c${i}`).value.trim());
   }
   
-  document.getElementById('btn-submit').innerText = "Guardando en la nube...";
+  document.getElementById('btn-submit').innerText = "Guardando...";
   document.getElementById('btn-submit').disabled = true;
 
   const dimScores=[...answers]; 
@@ -528,7 +511,7 @@ async function submitSurvey(){
 
 /* ---- DASHBOARD ---- */
 async function loadDashboard(){
-  document.getElementById('dash-content').innerHTML='<div class="loading-dash">⏳ Sincronizando datos del Grupo EPM…</div>';
+  document.getElementById('dash-content').innerHTML='<div class="loading-dash">⏳ Sincronizando datos...</div>';
   const responses=await getResponses();
   renderDashboard(responses);
 }
@@ -536,7 +519,7 @@ async function loadDashboard(){
 function renderDashboard(responses){
   const dc=document.getElementById('dash-content');
   if(!responses || !responses.length){
-    dc.innerHTML=`<div class="no-data"><div class="no-data-icon">📊</div><p style="font-size:14px;color:#3D5470">Aún no hay respuestas registradas (o hubo un problema de conexión con Google Sheets).<br>Asegúrate de haber publicado tu Script correctamente.</p><br><button onclick="showView('vl')" style="padding:10px 22px;background:#0050A0;color:#fff;border:none;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;cursor:pointer">Completar diagnóstico</button></div>`;
+    dc.innerHTML=`<div class="no-data"><div class="no-data-icon">📊</div><p style="font-size:14px;color:#3D5470">Aún no hay respuestas registradas.</p></div>`;
     return;
   }
   const n=responses.length;
