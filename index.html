@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EPM - Diagnóstico Núcleo Corporativo (REDO 2026)</title>
+<title>EPM - Diagnóstico Núcleo Corporativo</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,300;0,400;0,500;0,600&display=swap');
 
@@ -19,189 +19,645 @@
   --sh-m:0 8px 36px rgba(0,30,80,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--t1);font-size:14px;min-height:100vh}
+body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--t1);font-size:14px;min-height:100vh}
 .view{display:none}
 .view.active{display:block}
 
 /* HEADER */
 .hdr{background:linear-gradient(128deg,#001440 0%,#003080 100%);padding:0 18px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;box-shadow:0 3px 20px rgba(0,0,0,.35)}
 .hdr-brand{display:flex;align-items:center;gap:10px}
-.hdr-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:#fff;letter-spacing:.3px}
-.hdr-btn{background:rgba(0,166,81,.3);border:1px solid rgba(0,166,81,.5);color:#fff;padding:6px 13px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer}
+.hdr-title{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;color:#fff;letter-spacing:.3px;line-height:1.15}
+.hdr-sub{font-size:10px;color:rgba(255,255,255,.5);font-weight:300}
+.hdr-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;padding:6px 13px;border-radius:7px;font-size:12px;font-weight:500;cursor:pointer;font-family:'Barlow',sans-serif;transition:.2s;white-space:nowrap}
+.hdr-btn:hover{background:rgba(255,255,255,.22)}
+.hdr-btn-g{background:rgba(0,166,81,.3);border-color:rgba(0,166,81,.5)}
+.hdr-btn-g:hover{background:rgba(0,166,81,.45)}
 
-/* LANDING & FORM */
-.land-hero{background:linear-gradient(155deg,#001440 0%,#003080 50%,#0055A5 100%);padding:48px 18px 80px;text-align:center;position:relative}
-.land-h1{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:32px;color:#fff;margin-bottom:12px}
+/* LANDING */
+.land-hero{background:linear-gradient(155deg,#001440 0%,#003080 50%,#0055A5 100%);padding:48px 18px 110px;text-align:center;position:relative;overflow:hidden}
+.land-hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle at 15% 60%,rgba(0,166,81,.09) 0%,transparent 45%),radial-gradient(circle at 85% 25%,rgba(255,255,255,.04) 0%,transparent 40%)}
+.land-h1{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:36px;color:#fff;line-height:1.1;margin-bottom:12px;letter-spacing:.3px;position:relative;z-index:1}
 .land-h1 em{color:#78CFB0;font-style:normal}
-.land-form-card{background:#fff;border-radius:16px;padding:26px;max-width:450px;margin:0 auto;box-shadow:0 14px 55px rgba(0,0,0,.28);margin-top:-40px;position:relative;z-index:1}
-.frow{margin-bottom:13px;text-align:left}
-.flabel{display:block;font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;margin-bottom:5px}
-.finput,.fselect{width:100%;padding:10px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif}
-.btn-start{width:100%;padding:13px;background:linear-gradient(135deg,#0050A0,#002F80);color:#fff;border:none;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;cursor:pointer;margin-top:10px}
-.btn-start:disabled{opacity:0.5}
+.land-p{color:rgba(255,255,255,.7);max-width:500px;margin:0 auto 32px;font-size:15px;line-height:1.65;font-weight:300;position:relative;z-index:1}
+.land-form-card{background:#fff;border-radius:16px;padding:26px;max-width:450px;margin:0 auto;box-shadow:0 14px 55px rgba(0,0,0,.28);position:relative;z-index:1}
+.lfc-h2{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:18px;color:var(--t1);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.frow{margin-bottom:13px}
+.flabel{display:block;font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.finput,.fselect{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:14px;color:var(--t1);background:#fff;outline:none;transition:border-color .2s}
+.finput:focus,.fselect:focus{border-color:var(--blue)}
+.fselect{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238098B5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+.btn-start{width:100%;padding:13px;background:linear-gradient(135deg,#0050A0,#002F80);color:#fff;border:none;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:.5px;cursor:pointer;margin-top:4px;transition:all .2s}
+.btn-start:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,80,160,.4)}
+.btn-start:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.dims-preview{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;max-width:590px;margin:-52px auto 0;padding:0 18px 36px;position:relative;z-index:2}
+.dpc{background:#fff;border-radius:12px;padding:13px 15px;box-shadow:var(--sh);border-top:3px solid var(--dc);transition:transform .2s}
+.dpc:hover{transform:translateY(-2px)}
+.dpc-icon{font-size:18px;margin-bottom:7px}
+.dpc-name{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;color:var(--t1);margin-bottom:3px}
+.dpc-desc{font-size:11px;color:var(--t3);line-height:1.4}
 
-/* SURVEY DIMENSIONS */
+/* SURVEY */
 .sv-wrap{max-width:670px;margin:0 auto;padding:18px}
-.dim-card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--sh);border-left:5px solid var(--dc)}
-.dim-info{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}
-.dim-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--t1)}
-.dim-range-lbl{font-size:12px;color:var(--t3);font-weight:600}
-.dim-input-wrap{display:flex;align-items:center;gap:15px}
-.range-slider{flex:1;height:6px;accent-color:var(--dc);cursor:pointer}
-.val-badge{width:50px;height:40px;background:var(--bg);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--dc)}
-.btn-submit{width:100%;padding:15px;background:linear-gradient(135deg,#00A651,#007A3D);color:#fff;border:none;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;cursor:pointer;margin-top:20px}
+.sv-prog-bar{background:#fff;border-radius:10px;padding:13px 16px;margin-bottom:16px;box-shadow:var(--sh);display:flex;align-items:center;gap:14px}
+.svp-info{flex:1;min-width:0}
+.svp-name{font-size:13px;font-weight:500;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.svp-unit{font-size:11px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.svp-bar{flex:2}
+.svp-track{height:5px;background:var(--bg);border-radius:3px;overflow:hidden;margin-bottom:3px}
+.svp-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:3px;width:0%;transition:width .4s}
+.svp-pct{font-size:10px;color:var(--t3);text-align:right}
+.dim-block{margin-bottom:16px}
+.dim-blk-hdr{display:flex;align-items:center;gap:10px;padding:11px 15px;border-radius:10px 10px 0 0;border-left:4px solid var(--dbc)}
+.dbn{width:24px;height:24px;border-radius:50%;color:#fff;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.dbname{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--t1)}
+.dbanch{font-size:10px;color:var(--t2)}
+.qcard{background:#fff;padding:15px 16px;border-left:3px solid var(--dbc);margin-bottom:2px;border-radius:0 0 10px 0;}
+.qcard-meta{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.qtag{font-size:10px;font-weight:600;color:var(--dbc);padding:2px 7px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px}
+.qtitle-small{font-size:11px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.3px}
+.qtext{font-size:14px;font-weight:500;color:var(--t1);line-height:1.6;margin-bottom:11px}
+.lk-anchors{display:flex;justify-content:space-between;margin-bottom:5px}
+.lk-a{font-size:10px;color:var(--t3);max-width:45%;line-height:1.3}
+.lk-a.r{text-align:right}
+.lk-scale{display:flex;gap:5px}
+.lk-opt{flex:1}
+.lk-opt input{display:none}
+.lk-opt label{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:9px 3px;border-radius:8px;border:1.5px solid var(--border);cursor:pointer;background:var(--bg);min-height:50px;transition:all .15s}
+.lk-opt label:hover{border-color:var(--dbc)}
+.lk-opt input:checked+label{border-color:var(--dbc);background:var(--dbc)}
+.lk-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;color:var(--t2)}
+.lk-sub{font-size:9px;color:var(--t3);text-align:center;margin-top:2px;line-height:1.2}
+.lk-opt input:checked+label .lk-num{color:#fff}
+.lk-opt input:checked+label .lk-sub{color:rgba(255,255,255,.75)}
+
+/* TEXTAREA ADDITION */
+.ftextarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--t1);background:#fff;outline:none;transition:border-color .2s;resize:vertical;min-height:70px;margin-top:5px}
+.ftextarea:focus{border-color:var(--dbc)}
+.ftextarea::placeholder{color:#A0B3C8}
+.q-opinion-label{display:block;font-size:11px;font-weight:600;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-top:16px;margin-bottom:4px}
+
+.sv-footer{background:#fff;border-radius:12px;padding:18px;box-shadow:var(--sh);margin-top:18px;text-align:center}
+.sv-footer p{font-size:12px;color:var(--t3);margin-bottom:12px}
+.btn-submit{padding:12px 36px;background:linear-gradient(135deg,#00A651,#007A3D);color:#fff;border:none;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:.5px;cursor:pointer;transition:all .2s}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,166,81,.4)}
+
+/* THANKS */
+.thx-wrap{max-width:460px;margin:40px auto;padding:18px;text-align:center}
+.thx-card{background:#fff;border-radius:16px;padding:36px 28px;box-shadow:var(--sh-m)}
+.thx-icon{font-size:48px;margin-bottom:14px}
+.thx-h1{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;color:var(--t1);margin-bottom:8px}
+.thx-p{font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:20px}
+.score-disp{background:var(--bg);border-radius:12px;padding:18px;margin-bottom:20px}
+.score-big{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:54px;color:var(--t1);line-height:1}
+.score-of{font-size:16px;color:var(--t3);font-weight:300}
+.btn-gdash{width:100%;padding:12px;background:linear-gradient(135deg,#0050A0,#002F80);color:#fff;border:none;border-radius:10px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:.5px;cursor:pointer;transition:all .2s;margin-bottom:8px}
+.btn-gdash:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(0,80,160,.4)}
+.btn-otra{width:100%;padding:10px;background:transparent;border:1.5px solid var(--border);color:var(--t2);border-radius:10px;font-family:'Barlow',sans-serif;font-size:13px;cursor:pointer;transition:.2s}
+.btn-otra:hover{border-color:var(--blue);color:var(--blue)}
 
 /* DASHBOARD */
-.dash-wrap{max-width:800px;margin:0 auto;padding:18px}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));gap:12px;margin-bottom:20px}
-.kpi-card{background:#fff;border-radius:12px;padding:15px;box-shadow:var(--sh);text-align:center}
-.rtable{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
-.rtable th, .rtable td{padding:12px;text-align:left;border-bottom:1px solid var(--bg)}
-.rtable th{background:var(--blue-l);font-size:11px;text-transform:uppercase;color:var(--blue-d)}
+.dash-wrap{max-width:720px;margin:0 auto;padding:18px}
+.dash-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.kpi{background:#fff;border-radius:12px;padding:15px 17px;box-shadow:var(--sh)}
+.kpi-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);margin-bottom:5px}
+.kpi-val{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:34px;color:var(--t1);line-height:1;margin-bottom:2px}
+.kpi-sub{font-size:11px;color:var(--t3)}
+.kpi-prog{height:4px;background:var(--bg);border-radius:2px;margin-top:8px;overflow:hidden}
+.kpi-pfill{height:100%;border-radius:2px;transition:width .7s}
+.lvlpill{display:inline-flex;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;margin-top:7px}
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+.cc{background:#fff;border-radius:12px;padding:15px 17px;box-shadow:var(--sh)}
+.cc h3{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--t1);margin-bottom:12px}
+.hbar-row{margin-bottom:9px}
+.hbar-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.hbar-name{font-size:12px;font-weight:500;color:var(--t1)}
+.hbar-val{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px}
+.hbar-track{height:7px;background:var(--bg);border-radius:4px;overflow:hidden}
+.hbar-fill{height:100%;border-radius:4px;transition:width .7s}
+.resp-card{background:#fff;border-radius:12px;padding:15px 17px;box-shadow:var(--sh);margin-bottom:14px;overflow-x:auto}
+.resp-card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.resp-card-hdr h3{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--t1)}
+.btn-clr{padding:5px 11px;border:1px solid var(--border);background:transparent;border-radius:6px;font-size:11px;color:var(--t3);cursor:pointer;transition:.2s}
+.btn-clr:hover{border-color:var(--red);color:var(--red)}
+.rtable{width:100%;border-collapse:collapse;min-width:520px}
+.rtable th{text-align:left;padding:6px 9px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--t3);border-bottom:1px solid var(--border)}
+.rtable td{padding:8px 9px;font-size:12px;color:var(--t1);border-bottom:1px solid var(--bg)}
+.rtable tr:last-child td{border-bottom:none}
+.rtable tr:hover td{background:var(--bg)}
+.schip{display:inline-flex;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
+.matrix-card{background:#fff;border-radius:12px;padding:15px 17px;box-shadow:var(--sh);margin-bottom:16px}
+.matrix-card h3{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--t1);margin-bottom:11px}
+.mrow{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border-radius:8px;border:1.5px solid var(--border);margin-bottom:7px;transition:.15s}
+.mrow.active{border-color:var(--mc);background:var(--mcl)}
+.mdot{width:9px;height:9px;border-radius:50%;background:var(--mc);flex-shrink:0;margin-top:4px}
+.mrange{font-size:11px;font-weight:600;color:var(--t3);min-width:70px}
+.mrow.active .mrange{color:var(--mc)}
+.mlevel{font-size:13px;font-weight:600;color:var(--t1);margin-bottom:2px}
+.mdesc{font-size:11.5px;color:var(--t2);line-height:1.4}
+.no-data{text-align:center;padding:50px 20px;color:var(--t3)}
+.no-data-icon{font-size:36px;margin-bottom:10px}
+.dash-add-btn{text-align:center;margin-top:14px;padding-bottom:10px}
+.dash-add-btn button{padding:10px 24px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:.2s}
+.dash-add-btn button:hover{opacity:.85}
+.loading-dash{text-align:center;padding:50px;color:var(--t3);font-size:14px}
+
+@media(max-width:560px){
+  .dims-preview{grid-template-columns:1fr}
+  .dash-top{grid-template-columns:1fr 1fr}
+  .charts-row{grid-template-columns:1fr}
+  .land-h1{font-size:27px}
+  .dash-top .kpi:first-child{grid-column:span 2}
+}
 </style>
 </head>
 <body>
-
 <div id="app">
-    <header class="hdr">
-        <div class="hdr-brand">
-            <div class="hdr-title">EPM REDO 2026</div>
-        </div>
-        <button class="hdr-btn" onclick="goToDashboard()">📊 Resultados</button>
-    </header>
 
-    <div id="vl" class="view active">
-        <div class="land-hero">
-            <h1 class="land-h1">Evaluación de Madurez<br><em>Núcleo Corporativo</em></h1>
-        </div>
-        <div class="land-form-card">
-            <div class="frow">
-                <label class="flabel">Nombre completo</label>
-                <input class="finput" id="inp-name" type="text">
-            </div>
-            <div class="frow">
-                <label class="flabel">Cargo</label>
-                <input class="finput" id="inp-cargo" type="text">
-            </div>
-            <div class="frow">
-                <label class="flabel">Unidad / Filial</label>
-                <select class="fselect" id="inp-unidad">
-                    <option value="">Seleccione...</option>
-                    <option>EPM Corporativo</option>
-                    <option>Afinia</option>
-                    <option>Aguas Regionales</option>
-                    <option>Filial Internacional</option>
-                </select>
-            </div>
-            <button class="btn-start" onclick="startSurvey()">Comenzar Evaluación →</button>
-        </div>
+<header class="hdr">
+  <div class="hdr-brand">
+    <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="16" stroke="rgba(255,255,255,.15)" stroke-width="1.5"/>
+      <circle cx="18" cy="10" r="4.5" fill="#78CFB0"/>
+      <circle cx="26" cy="23" r="4.5" fill="#4A90D9"/>
+      <circle cx="10" cy="23" r="4.5" fill="#4A90D9"/>
+      <line x1="18" y1="14.5" x2="23.5" y2="19" stroke="rgba(255,255,255,.38)" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="18" y1="14.5" x2="12.5" y2="19" stroke="rgba(255,255,255,.38)" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="23" x2="14" y2="23" stroke="rgba(255,255,255,.38)" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <div class="hdr-title">Grupo EPM</div>
+      <div class="hdr-sub">Diagnóstico · Núcleo Corporativo</div>
     </div>
+  </div>
+  <button class="hdr-btn hdr-btn-g" onclick="goToDashboard()">📊 Resultados grupales</button>
+</header>
 
-    <div id="vs" class="view">
-        <div class="sv-wrap">
-            <div id="dim-inputs"></div>
-            <button class="btn-submit" onclick="submitSurvey()">Sincronizar con REDO 2026 ✓</button>
-        </div>
+<div id="vl" class="view">
+  <div class="land-hero">
+    <svg width="88" height="88" viewBox="0 0 88 88" fill="none" style="margin:0 auto 22px;display:block;position:relative;z-index:1">
+      <circle cx="44" cy="44" r="42" stroke="rgba(255,255,255,.07)" stroke-width="2"/>
+      <circle cx="44" cy="44" r="27" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+      <circle cx="44" cy="44" r="9" fill="#00A651" opacity=".9"/>
+      <circle cx="44" cy="16" r="5.5" fill="#78CFB0"/>
+      <circle cx="68" cy="31" r="5.5" fill="#4A90D9"/>
+      <circle cx="68" cy="59" r="5.5" fill="#4A90D9"/>
+      <circle cx="44" cy="74" r="5.5" fill="#78CFB0"/>
+      <circle cx="20" cy="59" r="5.5" fill="#4A90D9"/>
+      <circle cx="20" cy="31" r="5.5" fill="#4A90D9"/>
+      <line x1="44" y1="35" x2="44" y2="21.5" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+      <line x1="52" y1="40" x2="63.5" y2="33.5" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+      <line x1="52" y1="50" x2="63.5" y2="56.5" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+      <line x1="44" y1="53" x2="44" y2="68.5" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+      <line x1="36" y1="50" x2="24.5" y2="56.5" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+      <line x1="36" y1="40" x2="24.5" y2="33.5" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
+    </svg>
+    <h1 class="land-h1">Diagnóstico de Madurez<br><em>Núcleo Corporativo</em></h1>
+    <p class="land-p">Evalúe el grado de integración estratégica del Grupo EPM a través de 4 dimensiones clave. Sus respuestas cualitativas y cuantitativas contribuirán al diagnóstico grupal.</p>
+    <div class="land-form-card">
+      <div class="lfc-h2">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3.5" stroke="#0050A0" stroke-width="1.4"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#0050A0" stroke-width="1.4" stroke-linecap="round"/></svg>
+        Datos del participante
+      </div>
+      <div class="frow">
+        <label class="flabel" for="inp-name">Nombre completo</label>
+        <input class="finput" id="inp-name" type="text" placeholder="Ej. María García">
+      </div>
+      <div class="frow">
+        <label class="flabel" for="inp-cargo">Cargo</label>
+        <input class="finput" id="inp-cargo" type="text" placeholder="Ej. Gerente de Planeación Estratégica">
+      </div>
+      <div class="frow">
+        <label class="flabel" for="inp-unidad">Unidad / Filial</label>
+        <select class="fselect" id="inp-unidad">
+          <option value="">— Seleccione su unidad —</option>
+          <option>EPM Corporativo (Medellín)</option>
+          <option>Afinia</option>
+          <option>Aguas Regionales EPM</option>
+          <option>EPM Ituango</option>
+          <option>Filial internacional — Chile</option>
+          <option>Filial internacional — Guatemala</option>
+          <option>Filial internacional — El Salvador</option>
+          <option>Filial internacional — Panamá</option>
+          <option>Filial internacional — México</option>
+          <option>Otra unidad / filial</option>
+        </select>
+      </div>
+      <button class="btn-start" id="btn-start" onclick="startSurvey()" disabled>Iniciar diagnóstico →</button>
     </div>
+  </div>
+  <div class="dims-preview">
+    <div class="dpc" style="--dc:#0050A0"><div class="dpc-icon">⚖️</div><div class="dpc-name">Toma de Decisiones</div><div class="dpc-desc">De la fragmentación reactiva a la base coherente</div></div>
+    <div class="dpc" style="--dc:#00A651"><div class="dpc-icon">🎯</div><div class="dpc-name">Esfuerzos</div><div class="dpc-desc">De la energía disipada a la cohesión de equipos</div></div>
+    <div class="dpc" style="--dc:#6B3FA0"><div class="dpc-icon">🔭</div><div class="dpc-name">Visión</div><div class="dpc-desc">De los silos territoriales a la visión común</div></div>
+    <div class="dpc" style="--dc:#D68000"><div class="dpc-icon">🚀</div><div class="dpc-name">Despliegue</div><div class="dpc-desc">Del caos imposible a la implementación efectiva</div></div>
+  </div>
+</div>
 
-    <div id="vd" class="view">
-        <div class="dash-wrap">
-            <div class="kpi-grid">
-                <div class="kpi-card"><div class="flabel">Puntaje Grupal</div><div id="avg-total" style="font-size:28px; font-weight:700">0</div></div>
-                <div class="kpi-card"><div class="flabel">Participantes</div><div id="total-resp" style="font-size:28px; font-weight:700">0</div></div>
-            </div>
-            <div class="card" id="dash-data" style="background:#fff; border-radius:12px; padding:20px; box-shadow:var(--sh)">
-                <h3 style="margin-bottom:15px; font-family:'Barlow Condensed'">Registro Histórico</h3>
-                <div id="table-container"></div>
-            </div>
-            <button class="btn-start" onclick="showView('vl')" style="margin-top:20px">Regresar</button>
-        </div>
+<div id="vs" class="view">
+  <div class="sv-wrap">
+    <div class="sv-prog-bar">
+      <div class="svp-info"><div class="svp-name" id="svp-name">—</div><div class="svp-unit" id="svp-unit">—</div></div>
+      <div class="svp-bar"><div class="svp-track"><div class="svp-fill" id="svp-fill"></div></div><div class="svp-pct" id="svp-pct">0 de 4 respondidas</div></div>
     </div>
+    <div id="survey-qs"></div>
+    <div class="sv-footer">
+      <p id="submit-msg">Al enviar, sus respuestas quedarán registradas para el análisis estratégico del Grupo EPM.</p>
+      <button class="btn-submit" id="btn-submit" onclick="submitSurvey()">Enviar diagnóstico ✓</button>
+    </div>
+  </div>
+</div>
+
+<div id="vt" class="view">
+  <div class="thx-wrap">
+    <div class="thx-card">
+      <div class="thx-icon">✅</div>
+      <h1 class="thx-h1">¡Diagnóstico enviado!</h1>
+      <p class="thx-p">Sus aportes han sido registrados exitosamente.</p>
+      <div class="score-disp">
+        <div class="score-big" id="thx-score">—</div>
+        <div class="score-of">de 20 puntos totales</div>
+        <div id="thx-level-badge" style="margin-top:8px"></div>
+      </div>
+      <div id="thx-dim-bars" style="margin-bottom:20px"></div>
+      <button class="btn-gdash" onclick="goToDashboard()">Ver resultados del grupo →</button>
+      <button class="btn-otra" onclick="resetAndGoLanding()">Registrar otra persona</button>
+    </div>
+  </div>
+</div>
+
+<div id="vd" class="view">
+  <div class="dash-wrap">
+    <div id="dash-content"><div class="loading-dash">⏳ Cargando datos del Grupo EPM…</div></div>
+  </div>
+</div>
+
 </div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmYgt-HCaQPnN4LUilyvz6CtDfqii6hkExQhnkLMVedvYk1MmDnn5bSY2CR9kAXATL/exec";
-
-// CONFIGURACIÓN BASADA EN LA IMAGEN DE EPM
-const DIMS = [
-    { id: 1, name: 'Toma de Decisiones', min: 25, max: 60, color: '#0050A0' },
-    { id: 2, name: 'Esfuerzos', min: 5, max: 12, color: '#00A651' },
-    { id: 3, name: 'Visión', min: 30, max: 120, color: '#6B3FA0' },
-    { id: 4, name: 'Despliegue', min: 3, max: 36, color: '#D68000' }
+/* ---- DATA ---- */
+const DIMS=[
+  {id:1,name:'Toma de Decisiones',color:'#0050A0',colorL:'#EBF3FC',a1:'Fragmentada y reactiva',a5:'Base coherente'},
+  {id:2,name:'Esfuerzos de los Equipos',color:'#00A651',colorL:'#E8F7EF',a1:'Falta de enfoque y energía disipada',a5:'Esfuerzos alineados y cohesión'},
+  {id:3,name:'Visión Organizacional',color:'#6B3FA0',colorL:'#F2EAFD',a1:'Aislada en silos',a5:'Unida en una visión común'},
+  {id:4,name:'Despliegue',color:'#D68000',colorL:'#FEF3DC',a1:'Imposible y caótico',a5:'Implementación efectiva y adecuada'}
 ];
 
-let currentUser = {};
+const ICONS=['⚖️','🎯','🔭','🚀'];
+const SLABELS=['Incipiente','Bajo','Moderado','Alto','Óptimo'];
 
-function showView(id){
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+// Solo 4 preguntas (1 por dimensión)
+const QS=[
+  {dim:1,num:1,title:'Evaluación de la Dimensión', text:'¿Cómo evalúa el proceso de toma de decisiones en el contexto del Grupo?', a1:'Fragmentada y reactiva', a5:'Base coherente'},
+  {dim:2,num:2,title:'Evaluación de la Dimensión', text:'¿Cómo percibe la dirección y distribución de los esfuerzos de los equipos?', a1:'Falta de enfoque y energía disipada', a5:'Esfuerzos alineados y cohesión'},
+  {dim:3,num:3,title:'Evaluación de la Dimensión', text:'¿Cuál considera que es el estado actual de nuestra visión organizacional?', a1:'Aislada en silos', a5:'Unida en una visión común'},
+  {dim:4,num:4,title:'Evaluación de la Dimensión', text:'¿Cómo calificaría nuestra capacidad de despliegue e implementación estratégica?', a1:'Imposible y caótico', a5:'Implementación efectiva y adecuada'}
+];
+
+// Niveles actualizados sobre 20 puntos máximo (4 preguntas x 5 pts)
+const LEVELS=[
+  {min:4,max:8,name:'Fragmentación Crítica',color:'#C8332A',colorL:'#FDECEA', desc:'El núcleo es puramente nominal. Alto riesgo de ineficiencia operativa.'},
+  {min:9,max:12,name:'Transición Reactiva',color:'#D68000',colorL:'#FEF3DC', desc:'Hay esfuerzos por unir la organización, pero los silos predominan en la cultura.'},
+  {min:13,max:16,name:'Alineación Funcional',color:'#0050A0',colorL:'#EBF3FC', desc:'El núcleo ya genera valor coherente. Falta agilidad en el despliegue a escala.'},
+  {min:17,max:20,name:'Núcleo de Alto Rendimiento',color:'#00A651',colorL:'#E8F7EF', desc:'El Grupo opera de manera sinérgica con máxima eficiencia y capacidad de implementación.'}
+];
+
+function getLevel(s){return LEVELS.find(l=>s>=l.min&&s<=l.max)||LEVELS[0]}
+
+/* ---- STORAGE (GOOGLE SHEETS) ---- */
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmYgt-HCaQPnN4LUilyvz6CtDfqii6hkExQhnkLMVedvYk1MmDnn5bSY2CR9kAXATL/exec";
+
+async function getResponses(){
+  try {
+    const r = await fetch(SCRIPT_URL);
+    const data = await r.json();
+    return data.map(row => ({
+      name: row.nombre || 'Anónimo',
+      cargo: row.cargo || '-',
+      unidad: row.unidad || '-',
+      timestamp: row.fecha || new Date().toISOString(),
+      dimScores: [
+        parseFloat(row.dim1) || 0,
+        parseFloat(row.dim2) || 0,
+        parseFloat(row.dim3) || 0,
+        parseFloat(row.dim4) || 0
+      ],
+      total: parseFloat(row.total) || 0
+    }));
+  } catch(e) {
+    console.error("Error consultando Google Sheets:", e);
+    return [];
+  }
 }
 
-function startSurvey(){
-    currentUser = {
-        name: document.getElementById('inp-name').value,
-        cargo: document.getElementById('inp-cargo').value,
-        unidad: document.getElementById('inp-unidad').value
-    };
-    if(!currentUser.name) return alert("Completa los datos");
-    
-    const container = document.getElementById('dim-inputs');
-    container.innerHTML = DIMS.map(d => `
-        <div class="dim-card" style="--dc: ${d.color}">
-            <div class="dim-info">
-                <span class="dim-name">${d.name}</span>
-                <span class="dim-range-lbl">Rango: ${d.min} - ${d.max}</span>
-            </div>
-            <div class="dim-input-wrap">
-                <input type="range" class="range-slider" min="${d.min}" max="${d.max}" value="${d.min}" 
-                       oninput="document.getElementById('val-${d.id}').innerText = this.value">
-                <div class="val-badge" id="val-${d.id}">${d.min}</div>
-            </div>
-        </div>
-    `).join('');
-    
-    showView('vs');
-}
-
-async function submitSurvey(){
-    const scores = DIMS.map(d => parseInt(document.querySelector(`input[min="${d.min}"]`).value));
-    const total = scores.reduce((a,b) => a + b, 0);
-
-    const payload = {
-        name: currentUser.name,
-        cargo: currentUser.cargo,
-        unidad: currentUser.unidad,
-        dimScores: scores,
-        total: total
-    };
-
-    try {
-        await fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-        alert("¡Datos guardados con éxito!");
-        goToDashboard();
-    } catch(e) { alert("Error al guardar"); }
-}
-
-async function goToDashboard(){
-    showView('vd');
-    const res = await fetch(SCRIPT_URL);
-    const data = await res.json();
-    
-    document.getElementById('total-resp').innerText = data.length;
-    const avg = data.reduce((s, r) => s + parseFloat(r.total), 0) / data.length;
-    document.getElementById('avg-total').innerText = avg.toFixed(1);
-
-    let html = `<table class="rtable"><thead><tr><th>Participante</th><th>Total</th><th>Fecha</th></tr></thead><tbody>`;
-    data.reverse().forEach(r => {
-        html += `<tr>
-            <td><strong>${r.nombre}</strong><br><small>${r.unidad}</small></td>
-            <td><span style="font-weight:700; color:var(--blue)">${r.total}</span></td>
-            <td>${new Date(r.fecha).toLocaleDateString()}</td>
-        </tr>`;
+async function saveResponse(resp){
+  try {
+    // Nota: El objeto ahora incluye "comments", puedes adaptar tu script de Google Sheets 
+    // para recibirlos si lo deseas. Las lógicas originales seguirán funcionando.
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify({
+        name: resp.name,
+        cargo: resp.cargo,
+        unidad: resp.unidad,
+        dimScores: resp.dimScores,
+        total: resp.total,
+        comments: resp.comments
+      })
     });
-    html += `</tbody></table>`;
-    document.getElementById('table-container').innerHTML = html;
+    return true;
+  } catch(e) {
+    console.error("Error guardando en Google Sheets:", e);
+    return false;
+  }
 }
+
+function clearAll(){
+  alert("Para limpiar los datos del tablero grupal, debes borrar las filas directamente en tu archivo de Google Sheets (dejando solo la Fila 1 de encabezados).");
+}
+
+/* ---- VIEWS ---- */
+let currentUser={};
+function showView(id){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goToDashboard(){showView('vd');loadDashboard();}
+function resetAndGoLanding(){
+  ['inp-name','inp-cargo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('inp-unidad').value='';
+  document.getElementById('btn-start').disabled=true;
+  showView('vl');
+}
+
+/* ---- LANDING ---- */
+['inp-name','inp-cargo','inp-unidad'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',checkForm);
+  document.getElementById(id).addEventListener('change',checkForm);
+});
+function checkForm(){
+  const ok=document.getElementById('inp-name').value.trim()&&
+    document.getElementById('inp-cargo').value.trim()&&
+    document.getElementById('inp-unidad').value;
+  document.getElementById('btn-start').disabled=!ok;
+}
+
+/* ---- SURVEY BUILD ---- */
+function startSurvey(){
+  const name=document.getElementById('inp-name').value.trim();
+  const cargo=document.getElementById('inp-cargo').value.trim();
+  const unidad=document.getElementById('inp-unidad').value;
+  if(!name||!cargo||!unidad)return;
+  currentUser={name,cargo,unidad};
+  document.getElementById('svp-name').textContent=name;
+  document.getElementById('svp-unit').textContent=cargo+' · '+unidad;
+  buildSurvey();
+  showView('vs');
+  document.querySelectorAll('#survey-qs input[type=radio]').forEach(i=>i.addEventListener('change',updateProg));
+}
+
+function buildSurvey(){
+  let html='';
+  DIMS.forEach((dim,di)=>{
+    const q=QS.find(q=>q.dim===dim.id); // Solo 1 pregunta por dimensión ahora
+    const qi=di+1;
+    
+    html+=`<div class="dim-block">
+      <div class="dim-blk-hdr" style="--dbc:${dim.color};background:${dim.colorL};border-color:${dim.color}">
+        <div class="dbn" style="background:${dim.color}">${qi}</div>
+        <div>
+          <div class="dbname">${ICONS[di]} ${dim.name}</div>
+          <div class="dbanch">1 = ${dim.a1} &nbsp;/&nbsp; 5 = ${dim.a5}</div>
+        </div>
+      </div>
+      
+      <div class="qcard" style="--dbc:${dim.color}">
+        <div class="qtext">${q.text}</div>
+        <div class="lk-anchors">
+          <div class="lk-a">${q.a1}</div>
+          <div class="lk-a r">${q.a5}</div>
+        </div>
+        <div class="lk-scale">`;
+        
+    for(let v=1;v<=5;v++){
+      html+=`<div class="lk-opt">
+        <input type="radio" name="q${qi}" value="${v}" id="q${qi}-${v}">
+        <label for="q${qi}-${v}" style="--dbc:${dim.color}">
+          <span class="lk-num">${v}</span>
+          <span class="lk-sub">${SLABELS[v-1]}</span>
+        </label>
+      </div>`;
+    }
+    
+    html+=`</div>
+        <label class="q-opinion-label" for="c${qi}">Justificación / Opiniones (Opcional):</label>
+        <textarea class="ftextarea" id="c${qi}" style="--dbc:${dim.color}" placeholder="Escriba aquí sus observaciones o justificación para esta dimensión..."></textarea>
+      </div>
+    </div>`;
+  });
+  document.getElementById('survey-qs').innerHTML=html;
+}
+
+function updateProg(){
+  let ans=0;
+  for(let i=1;i<=4;i++){if(document.querySelector(`input[name="q${i}"]:checked`))ans++;}
+  const pct=Math.round((ans/4)*100);
+  document.getElementById('svp-fill').style.width=pct+'%';
+  document.getElementById('svp-pct').textContent=ans+' de 4 respondidas';
+}
+
+/* ---- SUBMIT ---- */
+async function submitSurvey(){
+  const answers=[];
+  const comments=[];
+  
+  for(let i=1;i<=4;i++){
+    const el=document.querySelector(`input[name="q${i}"]:checked`);
+    if(!el){alert('Por favor califique todas las dimensiones antes de enviar.');return;}
+    answers.push(parseInt(el.value));
+    comments.push(document.getElementById(`c${i}`).value.trim());
+  }
+  
+  document.getElementById('btn-submit').innerText = "Guardando en la nube...";
+  document.getElementById('btn-submit').disabled = true;
+
+  // En la nueva lógica de 4 preguntas, el score de la dimensión es simplemente su respuesta
+  const dimScores=[...answers]; 
+  const total=answers.reduce((a,b)=>a+b,0);
+  
+  const resp={
+    id:Date.now(),
+    name:currentUser.name,
+    cargo:currentUser.cargo,
+    unidad:currentUser.unidad,
+    timestamp:new Date().toISOString(),
+    answers,
+    dimScores,
+    total,
+    comments
+  };
+  
+  await saveResponse(resp);
+
+  document.getElementById('btn-submit').innerText = "Enviar diagnóstico ✓";
+  document.getElementById('btn-submit').disabled = false;
+
+  const lv=getLevel(total);
+  document.getElementById('thx-score').textContent=total;
+  document.getElementById('thx-level-badge').innerHTML=
+    `<span style="display:inline-block;background:${lv.colorL};color:${lv.color};padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600">${lv.name}</span>`;
+
+  let bars='';
+  DIMS.forEach((dim,i)=>{
+    const pct=Math.round((dimScores[i]/5)*100); // Ahora se divide sobre 5
+    bars+=`<div style="margin-bottom:9px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
+        <span style="font-size:12px;font-weight:500;color:#001640">${ICONS[i]} ${dim.name}</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;color:${dim.color}">${dimScores[i]}/5</span>
+      </div>
+      <div style="height:6px;background:#EEF3FA;border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:${dim.color};border-radius:3px"></div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('thx-dim-bars').innerHTML=bars;
+  showView('vt');
+}
+
+/* ---- DASHBOARD ---- */
+async function loadDashboard(){
+  document.getElementById('dash-content').innerHTML='<div class="loading-dash">⏳ Sincronizando datos del Grupo EPM…</div>';
+  const responses=await getResponses();
+  renderDashboard(responses);
+}
+
+function renderDashboard(responses){
+  const dc=document.getElementById('dash-content');
+  if(!responses || !responses.length){
+    dc.innerHTML=`<div class="no-data"><div class="no-data-icon">📊</div><p style="font-size:14px;color:#3D5470">Aún no hay respuestas registradas (o hubo un problema de conexión con Google Sheets).<br>Asegúrate de haber publicado tu Script correctamente.</p><br><button onclick="showView('vl')" style="padding:10px 22px;background:#0050A0;color:#fff;border:none;border-radius:8px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;cursor:pointer">Completar diagnóstico</button></div>`;
+    return;
+  }
+  const n=responses.length;
+  const avgTotal=responses.reduce((s,r)=>s+r.total,0)/n;
+  const avgDims=[0,0,0,0];
+  responses.forEach(r=>r.dimScores.forEach((v,i)=>{avgDims[i]+=v;}));
+  avgDims.forEach((v,i)=>{avgDims[i]=v/n;});
+  const gLv=getLevel(Math.round(avgTotal));
+  const weakIdx=avgDims.indexOf(Math.min(...avgDims));
+
+  dc.innerHTML=`
+    <div class="dash-top">
+      <div class="kpi">
+        <div class="kpi-lbl">Puntaje Promedio Grupal</div>
+        <div class="kpi-val">${avgTotal.toFixed(1)}<span style="font-size:16px;font-weight:300;color:#8098B5">/20</span></div>
+        <div class="kpi-prog"><div class="kpi-pfill" style="width:${(avgTotal/20)*100}%;background:${gLv.color}"></div></div>
+        <div class="lvlpill" style="background:${gLv.colorL};color:${gLv.color}">${gLv.name}</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Participantes</div>
+        <div class="kpi-val">${n}</div>
+        <div class="kpi-sub">respuestas registradas</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-lbl">Dimensión más débil</div>
+        <div style="font-size:26px;margin:4px 0">${ICONS[weakIdx]}</div>
+        <div class="kpi-sub" style="font-size:11px">${DIMS[weakIdx].name}<br><strong style="color:${DIMS[weakIdx].color}">${avgDims[weakIdx].toFixed(1)}/5</strong></div>
+      </div>
+    </div>
+
+    <div class="charts-row">
+      <div class="cc">
+        <h3>Perfil por Dimensión</h3>
+        ${buildRadar(avgDims)}
+      </div>
+      <div class="cc">
+        <h3>Promedio por Dimensión</h3>
+        ${buildBars(avgDims)}
+      </div>
+    </div>
+
+    <div class="resp-card">
+      <div class="resp-card-hdr">
+        <h3>Registro de participantes (${n})</h3>
+        <button class="btn-clr" onclick="clearAll()">🗑 Instrucciones para limpiar</button>
+      </div>
+      ${buildTable(responses)}
+    </div>
+
+    <div class="matrix-card">
+      <h3>Matriz de Interpretación de Resultados</h3>
+      ${buildMatrix(Math.round(avgTotal))}
+    </div>
+
+    <div class="dash-add-btn">
+      <button onclick="showView('vl')">+ Registrar participante</button>
+    </div>
+  `;
+}
+
+function buildRadar(avgDims){
+  const cx=120,cy=118,r=80;
+  const pts=[[cx,cy-r],[cx+r,cy],[cx,cy+r],[cx-r,cy]];
+  let grid='';
+  [.2,.4,.6,.8,1].forEach(f=>{
+    const p=pts.map(([ax,ay])=>`${cx+(ax-cx)*f},${cy+(ay-cy)*f}`).join(' ');
+    grid+=`<polygon points="${p}" fill="none" stroke="#D0DDF0" stroke-width="1"/>`;
+  });
+  const axes=pts.map(([ax,ay])=>`<line x1="${cx}" y1="${cy}" x2="${ax}" y2="${ay}" stroke="#D0DDF0" stroke-width="1"/>`).join('');
+  const vals=avgDims.map(v=>v/5); // Dividimos sobre 5, el nuevo máximo
+  const dpts=pts.map(([ax,ay],i)=>[cx+(ax-cx)*vals[i],cy+(ay-cy)*vals[i]]);
+  const dpoly=dpts.map(([x,y])=>`${x},${y}`).join(' ');
+  const ldots=dpts.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="4.5" fill="${DIMS[i].color}" stroke="#fff" stroke-width="1.5"/>`).join('');
+  const lvals=dpts.map(([x,y],i)=>`<text x="${x}" y="${y-8}" font-size="10" fill="${DIMS[i].color}" font-family="Barlow Condensed,sans-serif" font-weight="700" text-anchor="middle">${avgDims[i].toFixed(1)}</text>`).join('');
+  const lblpos=[[cx-28,cy-r-8],[cx+r+5,cy+4],[cx-20,cy+r+14],[cx-r-64,cy+4]];
+  const lblNames=['Decisiones','Esfuerzos','Visión','Despliegue'];
+  const lbls=lblNames.map((l,i)=>`<text x="${lblpos[i][0]}" y="${lblpos[i][1]}" font-size="10" fill="#3D5470" font-family="Barlow,sans-serif" font-weight="500">${ICONS[i]} ${l}</text>`).join('');
+  return `<svg viewBox="0 0 240 236" style="display:block;margin:0 auto;width:100%;max-width:240px">${grid}${axes}<polygon points="${dpoly}" fill="${DIMS[0].color}" fill-opacity=".12" stroke="${DIMS[0].color}" stroke-width="2"/>${ldots}${lvals}${lbls}</svg>`;
+}
+
+function buildBars(avgDims){
+  return DIMS.map((d,i)=>{
+    const pct=Math.round((avgDims[i]/5)*100); // Actualizado a división por 5
+    return `<div class="hbar-row">
+      <div class="hbar-top">
+        <div class="hbar-name">${ICONS[i]} ${d.name}</div>
+        <div class="hbar-val" style="color:${d.color}">${avgDims[i].toFixed(1)}/5</div>
+      </div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:${pct}%;background:${d.color}"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function buildTable(responses){
+  const sorted=[...responses].sort((a,b)=>b.total-a.total);
+  const rows=sorted.map(r=>{
+    const lv=getLevel(r.total);
+    const dt=new Date(r.timestamp).toLocaleDateString('es-CO',{day:'2-digit',month:'short'});
+    const dcells=r.dimScores.map((s,i)=>`<td style="text-align:center;font-size:11px;font-weight:600;color:${DIMS[i].color}">${s}</td>`).join('');
+    return `<tr>
+      <td><strong style="font-size:12px">${r.name}</strong><br><span style="font-size:10px;color:#8098B5">${r.unidad}</span></td>
+      ${dcells}
+      <td><span class="schip" style="background:${lv.colorL};color:${lv.color}">${r.total}</span></td>
+      <td style="font-size:10px;color:#8098B5;white-space:nowrap">${dt}</td>
+    </tr>`;
+  }).join('');
+  return `<table class="rtable"><thead><tr><th>Participante</th>${DIMS.map(d=>`<th style="text-align:center">${d.name.split(' ')[0]}</th>`).join('')}<th>Total</th><th>Fecha</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function buildMatrix(avg){
+  return LEVELS.map(lv=>{
+    const active=avg>=lv.min&&avg<=lv.max;
+    return `<div class="mrow${active?' active':''}" style="--mc:${lv.color};--mcl:${lv.colorL}">
+      <div class="mdot" style="background:${lv.color}"></div>
+      <div class="mrange">${lv.min}–${lv.max} pts</div>
+      <div><div class="mlevel">${lv.name}</div><div class="mdesc">${lv.desc}</div></div>
+    </div>`;
+  }).join('');
+}
+
+/* ---- INIT ---- */
+showView('vl');
 </script>
 </body>
 </html>
