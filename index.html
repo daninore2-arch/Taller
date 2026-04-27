@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -72,23 +73,19 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
 .dbname{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:15px;color:var(--t1)}
 .qcard{background:#fff;padding:15px 16px;border-left:3px solid var(--dbc);margin-bottom:2px;border-radius:0 0 10px 0;}
 .qtext{font-size:14px;font-weight:500;color:var(--t1);line-height:1.6;margin-bottom:11px}
-.lk-anchors{display:flex;justify-content:space-between;margin-bottom:14px; background:var(--bg); padding:10px; border-radius:8px;}
-.lk-a{font-size:11px;font-weight:600;color:var(--t3);max-width:48%;line-height:1.3}
+.lk-anchors{display:flex;justify-content:space-between;margin-bottom:5px}
+.lk-a{font-size:10px;font-weight:600;color:var(--t3);max-width:45%;line-height:1.3}
 .lk-a.r{text-align:right}
-
-/* MATRIX (COMPANIES) SCALES */
-.companies-wrap { margin-top: 5px; margin-bottom: 15px;}
-.comp-row { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed var(--border); }
-.comp-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
-.comp-name { width: 35%; font-size: 13px; font-weight: 600; color: var(--t1); }
-.lk-scale { display:flex; gap:5px; align-items:stretch; width: 65%; }
+.lk-scale{display:flex;gap:5px;align-items:stretch}
 .lk-opt{flex:1}
 .lk-opt input{display:none}
-.lk-opt label{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 2px;border-radius:8px;border:1.5px solid var(--border);cursor:pointer;background:var(--bg);min-height:38px;height:100%;transition:all .15s}
+.lk-opt label{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:10px 4px;border-radius:8px;border:1.5px solid var(--border);cursor:pointer;background:var(--bg);min-height:54px;height:100%;transition:all .15s}
 .lk-opt label:hover{border-color:var(--dbc)}
 .lk-opt input:checked+label{border-color:var(--dbc);background:var(--dbc)}
-.lk-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;color:var(--sc, var(--t2))}
+.lk-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;color:var(--sc, var(--t2))}
+.lk-sub{font-size:9px;color:var(--t3);text-align:center;margin-top:5px;line-height:1.15}
 .lk-opt input:checked+label .lk-num{color:#fff}
+.lk-opt input:checked+label .lk-sub{color:rgba(255,255,255,.9)}
 
 /* TEXTAREA ADDITION */
 .ftextarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-family:'Barlow',sans-serif;font-size:13px;color:var(--t1);background:#fff;outline:none;transition:border-color .2s;resize:vertical;min-height:70px;margin-top:5px}
@@ -156,10 +153,6 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
   .charts-row{grid-template-columns:1fr}
   .land-h1{font-size:27px}
   .dash-top .kpi:first-child{grid-column:span 2}
-  
-  .comp-row { flex-direction: column; align-items: flex-start; gap: 8px; }
-  .comp-name { width: 100%; }
-  .lk-scale { width: 100%; }
 }
 </style>
 </head>
@@ -205,7 +198,7 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
       <line x1="36" y1="40" x2="24.5" y2="33.5" stroke="rgba(255,255,255,.28)" stroke-width="1.5"/>
     </svg>
     <h1 class="land-h1">Núcleo Corporativo</h1>
-    <p class="land-p">Evalúe el grado de integración estratégica del Grupo EPM a través de 4 dimensiones clave. Evalúe de manera independiente a cada empresa.</p>
+    <p class="land-p">Evalúe el grado de integración estratégica del Grupo EPM a través de 4 dimensiones clave. Sus respuestas cualitativas y cuantitativas contribuirán al diagnóstico grupal.</p>
     <div class="land-form-card">
       <div class="lfc-h2">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="6" r="3.5" stroke="#0050A0" stroke-width="1.4"/><path d="M2 16c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#0050A0" stroke-width="1.4" stroke-linecap="round"/></svg>
@@ -220,29 +213,28 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
         <input class="finput" id="inp-cargo" type="text" placeholder="Ej. Gerente de Planeación Estratégica">
       </div>
       <div class="frow">
-        <label class="flabel" for="inp-unidad">Unidad / Filial</label>
+        <label class="flabel" for="inp-unidad">EMPRESA</label>
         <select class="fselect" id="inp-unidad">
-          <option value="">— Seleccione su unidad —</option>
-          <option>EPM Corporativo (Medellín)</option>
-          <option>Afinia</option>
-          <option>Aguas Regionales EPM</option>
-          <option>EPM Ituango</option>
-          <option>Filial internacional — Chile</option>
-          <option>Filial internacional — Guatemala</option>
-          <option>Filial internacional — El Salvador</option>
-          <option>Filial internacional — Panamá</option>
-          <option>Filial internacional — México</option>
-          <option>Otra unidad / filial</option>
+          <option value="">— Seleccione su empresa —</option>
+          <option>EPM Ejecutor</option>
+          <option>CENS</option>
+          <option>ESSA</option>
+          <option>CHEC</option>
+          <option>EDEQ</option>
+          <option>AFINIA</option>
+          <option>ENSA</option>
+          <option>EPM Guatemala</option>
+          <option>DELSUR</option>
         </select>
       </div>
       <button class="btn-start" id="btn-start" onclick="startSurvey()" disabled>Iniciar diagnóstico →</button>
     </div>
   </div>
   <div class="dims-preview">
-    <div class="dpc" style="--dc:#0050A0"><div class="dpc-icon">⚖️</div><div class="dpc-name">Decisiones</div><div class="dpc-desc">Del desconocimiento al respeto y valor del rol</div></div>
-    <div class="dpc" style="--dc:#00A651"><div class="dpc-icon">🔭</div><div class="dpc-name">Visión de Grupo</div><div class="dpc-desc">Del aislamiento a la visión común compartida</div></div>
-    <div class="dpc" style="--dc:#6B3FA0"><div class="dpc-icon">🎯</div><div class="dpc-name">Actuar</div><div class="dpc-desc">De asumir roles del núcleo al enfoque de ejecutor</div></div>
-    <div class="dpc" style="--dc:#D68000"><div class="dpc-icon">🚀</div><div class="dpc-name">Despliegue</div><div class="dpc-desc">Del conocimiento directivo a la irradiación total</div></div>
+    <div class="dpc" style="--dc:#0050A0"><div class="dpc-icon">⚖️</div><div class="dpc-name">Toma de Decisiones</div><div class="dpc-desc">De la fragmentación reactiva a la base coherente</div></div>
+    <div class="dpc" style="--dc:#00A651"><div class="dpc-icon">🎯</div><div class="dpc-name">Esfuerzos</div><div class="dpc-desc">De la energía disipada a la cohesión de equipos</div></div>
+    <div class="dpc" style="--dc:#6B3FA0"><div class="dpc-icon">🔭</div><div class="dpc-name">Visión</div><div class="dpc-desc">De los silos territoriales a la visión común</div></div>
+    <div class="dpc" style="--dc:#D68000"><div class="dpc-icon">🚀</div><div class="dpc-name">Despliegue</div><div class="dpc-desc">Del caos imposible a la implementación efectiva</div></div>
   </div>
 </div>
 
@@ -250,11 +242,11 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
   <div class="sv-wrap">
     <div class="sv-prog-bar">
       <div class="svp-info"><div class="svp-name" id="svp-name">—</div><div class="svp-unit" id="svp-unit">—</div></div>
-      <div class="svp-bar"><div class="svp-track"><div class="svp-fill" id="svp-fill"></div></div><div class="svp-pct" id="svp-pct">0 de 36 respondidas</div></div>
+      <div class="svp-bar"><div class="svp-track"><div class="svp-fill" id="svp-fill"></div></div><div class="svp-pct" id="svp-pct">0 de 4 respondidas</div></div>
     </div>
     <div id="survey-qs"></div>
     <div class="sv-footer">
-      <p id="submit-msg">Al enviar, sus promedios quedarán registrados para el análisis estratégico del Grupo EPM.</p>
+      <p id="submit-msg">Al enviar, sus respuestas quedarán registradas para el análisis estratégico del Grupo EPM.</p>
       <button class="btn-submit" id="btn-submit" onclick="submitSurvey()">Enviar diagnóstico ✓</button>
     </div>
   </div>
@@ -288,23 +280,22 @@ body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--
 
 <script>
 /* ---- DATA ---- */
-const COMPANIES = ['EPM Ejecutor', 'CENS', 'ESSA', 'CHEC', 'EDEQ', 'AFINIA', 'ENSA', 'EPM Guatemala', 'DELSUR'];
-
 const DIMS=[
-  {id:1,name:'Decisiones',color:'#0050A0',colorL:'#EBF3FC',a1:'Desconoce el rol del Núcleo, no le encuentra valor',a5:'Conoce, respeta y encuentra valor al rol de Núcleo'},
-  {id:2,name:'Visión de Grupo',color:'#00A651',colorL:'#E8F7EF',a1:'Aislado, la empresa actúa como un actor independiente',a5:'La empresa comprende que hace parte de un Grupo y comparte una visión común'},
-  {id:3,name:'Actuar',color:'#6B3FA0',colorL:'#F2EAFD',a1:'Asume responsabilidades del Núcleo',a5:'Actúa bajo el enfoque de ejecutor y comprende cuando escalar asuntos al núcleo o cuándo éste debe intervenir'},
-  {id:4,name:'Despliegue',color:'#D68000',colorL:'#FEF3DC',a1:'No se percibe conocimiento del rol de núcleo en otros niveles además del directivo',a5:'Se evidencia que desde la cabeza de la empresa se llevan a cabo esfuerzos para irradiar al resto de la compañía el entendimiento del rol de núcleo'}
+  {id:1,name:'Toma de Decisiones',color:'#0050A0',colorL:'#EBF3FC',a1:'Fragmentada y reactiva',a5:'Base coherente'},
+  {id:2,name:'Esfuerzos de los Equipos',color:'#00A651',colorL:'#E8F7EF',a1:'Falta de enfoque y energía disipada',a5:'Esfuerzos alineados y cohesión'},
+  {id:3,name:'Visión Organizacional',color:'#6B3FA0',colorL:'#F2EAFD',a1:'Aislada en silos',a5:'Unida en una visión común'},
+  {id:4,name:'Despliegue',color:'#D68000',colorL:'#FEF3DC',a1:'Imposible y caótico',a5:'Implementación efectiva y adecuada'}
 ];
 
-const ICONS=['⚖️','🔭','🎯','🚀'];
+const ICONS=['⚖️','🎯','🔭','🚀'];
 const SCOLORS = ['#C8332A', '#E8641B', '#D68000', '#5CB836', '#00A651']; 
 
+// Solo 4 preguntas (1 por dimensión)
 const QS=[
-  {dim:1,num:1,title:'Evaluación de la Dimensión', text:'¿Cómo evalúa el proceso de toma de decisiones?', a1:'Desconoce el rol del Núcleo, no le encuentra valor', a5:'Conoce, respeta y encuentra valor al rol de Núcleo'},
-  {dim:2,num:2,title:'Evaluación de la Dimensión', text:'¿Cómo describe la integración de la empresa frente a la visión del Grupo EPM?', a1:'Aislado, la empresa actúa como un actor independiente', a5:'La empresa comprende que hace parte de un Grupo y comparte una visión común'},
-  {dim:3,num:3,title:'Evaluación de la Dimensión', text:'¿Cómo es el actuar de la empresa respecto a las responsabilidades y el relacionamiento con el Núcleo?', a1:'Asume responsabilidades del Núcleo', a5:'Actúa bajo el enfoque de ejecutor y comprende cuando escalar asuntos al núcleo o cuándo éste debe intervenir'},
-  {dim:4,num:4,title:'Evaluación de la Dimensión', text:'¿Qué tan difundido está el conocimiento sobre el rol del Núcleo dentro de la compañía?', a1:'No se percibe conocimiento del rol de núcleo en otros niveles además del directivo', a5:'Se evidencia que desde la cabeza de la empresa se llevan a cabo esfuerzos para irradiar al resto de la compañía el entendimiento del rol de núcleo'}
+  {dim:1,num:1,title:'Evaluación de la Dimensión', text:'¿Cómo evalúa el proceso de toma de decisiones?', a1:'Fragmentada y reactiva', a5:'Base coherente'},
+  {dim:2,num:2,title:'Evaluación de la Dimensión', text:'¿Cómo percibe la dirección y distribución de los esfuerzos de los equipos?', a1:'Falta de enfoque y energía disipada', a5:'Esfuerzos alineados y cohesión'},
+  {dim:3,num:3,title:'Evaluación de la Dimensión', text:'¿Cuál considera que es el estado actual de nuestra visión organizacional?', a1:'Aislada en silos', a5:'Unida en una visión común'},
+  {dim:4,num:4,title:'Evaluación de la Dimensión', text:'¿Cómo calificaría nuestra capacidad de despliegue e implementación estratégica?', a1:'Imposible y caótico', a5:'Implementación efectiva y adecuada'}
 ];
 
 const LEVELS=[
@@ -317,7 +308,7 @@ const LEVELS=[
 function getLevel(s){return LEVELS.find(l=>s>=l.min&&s<=l.max)||LEVELS[0]}
 
 /* ---- STORAGE (GOOGLE SHEETS) ---- */
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbHfasn0gr1L4ysuOyRrpUe8uPrvEpbIt1foDjnXUCQ_RTpj0zQ3Q-c5WuRU0Q7GEB_g/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLGmZWt9EbeXBxswCfOrGm17K-3psnmNyqjrLS2z_yRagWZAULUIPL1PFlmRm4tiGz/exec";
 
 async function getResponses(){
   try {
@@ -351,8 +342,7 @@ async function saveResponse(resp){
         name: resp.name,
         cargo: resp.cargo,
         unidad: resp.unidad,
-        dimScores: resp.dimScores, // Enviamos el promedio al script de Google (para el Dashboard)
-        companyScores: resp.companyScores, // NUEVO: Enviamos el detalle de las 36 calificaciones
+        dimScores: resp.dimScores,
         total: resp.total,
         comments: resp.comments
       })
@@ -425,32 +415,29 @@ function buildSurvey(){
       
       <div class="qcard" style="--dbc:${dim.color}">
         <div class="qtext">${q.text}</div>
-        
         <div class="lk-anchors">
-          <div class="lk-a"><strong>1</strong> - ${q.a1}</div>
-          <div class="lk-a r"><strong>5</strong> - ${q.a5}</div>
+          <div class="lk-a">Ausencia del núcleo</div>
+          <div class="lk-a r">Presencia del núcleo</div>
         </div>
-        
-        <div class="companies-wrap">`;
-        
-    COMPANIES.forEach((comp, ci)=>{
-      html+=`<div class="comp-row">
-        <div class="comp-name">${comp}</div>
         <div class="lk-scale">`;
-        for(let v=1;v<=5;v++){
-          html+=`<div class="lk-opt">
-            <input type="radio" name="q${qi}_c${ci}" value="${v}" id="q${qi}_c${ci}_v${v}">
-            <label for="q${qi}_c${ci}_v${v}" style="--dbc:${SCOLORS[v-1]}; --sc:${SCOLORS[v-1]}">
-              <span class="lk-num">${v}</span>
-            </label>
-          </div>`;
-        }
-      html+=`</div></div>`;
-    });
+        
+    for(let v=1;v<=5;v++){
+      let subText = '';
+      if(v === 1) subText = q.a1;
+      else if(v === 5) subText = q.a5;
+
+      html+=`<div class="lk-opt">
+        <input type="radio" name="q${qi}" value="${v}" id="q${qi}-${v}">
+        <label for="q${qi}-${v}" style="--dbc:${SCOLORS[v-1]}; --sc:${SCOLORS[v-1]}">
+          <span class="lk-num">${v}</span>
+          ${subText ? `<span class="lk-sub">${subText}</span>` : ''}
+        </label>
+      </div>`;
+    }
     
     html+=`</div>
         <label class="q-opinion-label" for="c${qi}">Justificación / Opiniones (Opcional):</label>
-        <textarea class="ftextarea" id="c${qi}" style="--dbc:${dim.color}" placeholder="Escriba aquí sus observaciones o justificación general para esta dimensión..."></textarea>
+        <textarea class="ftextarea" id="c${qi}" style="--dbc:${dim.color}" placeholder="Escriba aquí sus observaciones o justificación para esta dimensión..."></textarea>
       </div>
     </div>`;
   });
@@ -459,39 +446,21 @@ function buildSurvey(){
 
 function updateProg(){
   let ans=0;
-  const totalQ = 4 * COMPANIES.length;
-  for(let i=1;i<=4;i++){
-    for(let c=0;c<COMPANIES.length;c++){
-      if(document.querySelector(`input[name="q${i}_c${c}"]:checked`)) ans++;
-    }
-  }
-  const pct=Math.round((ans/totalQ)*100);
+  for(let i=1;i<=4;i++){if(document.querySelector(`input[name="q${i}"]:checked`))ans++;}
+  const pct=Math.round((ans/4)*100);
   document.getElementById('svp-fill').style.width=pct+'%';
-  document.getElementById('svp-pct').textContent=ans+' de '+totalQ+' evaluadas';
+  document.getElementById('svp-pct').textContent=ans+' de 4 respondidas';
 }
 
 /* ---- SUBMIT ---- */
 async function submitSurvey(){
-  const answers=[]; // Promedios de cada dimension
-  const companyScores=[]; // 36 calificaciones individuales
+  const answers=[];
   const comments=[];
   
   for(let i=1;i<=4;i++){
-    let sum = 0;
-    let compRow = [];
-    for(let c=0;c<COMPANIES.length;c++){
-      const el=document.querySelector(`input[name="q${i}_c${c}"]:checked`);
-      if(!el){
-        alert(`Faltan empresas por evaluar en la dimensión: ${DIMS[i-1].name}`);
-        return;
-      }
-      const val = parseInt(el.value);
-      sum += val;
-      compRow.push(val); // Guardamos individual
-    }
-    const avg = parseFloat((sum / COMPANIES.length).toFixed(2));
-    answers.push(avg); // Guardamos promedio
-    companyScores.push(compRow); // Guardamos la fila de empresas
+    const el=document.querySelector(`input[name="q${i}"]:checked`);
+    if(!el){alert('Por favor califique todas las dimensiones antes de enviar.');return;}
+    answers.push(parseInt(el.value));
     comments.push(document.getElementById(`c${i}`).value.trim());
   }
   
@@ -499,7 +468,7 @@ async function submitSurvey(){
   document.getElementById('btn-submit').disabled = true;
 
   const dimScores=[...answers]; 
-  const total = parseFloat(answers.reduce((a,b)=>a+b,0).toFixed(2));
+  const total=answers.reduce((a,b)=>a+b,0);
   
   const resp={
     id:Date.now(),
@@ -507,8 +476,8 @@ async function submitSurvey(){
     cargo:currentUser.cargo,
     unidad:currentUser.unidad,
     timestamp:new Date().toISOString(),
+    answers,
     dimScores,
-    companyScores, // <-- NUEVA DATA A ENVIAR
     total,
     comments
   };
@@ -518,7 +487,7 @@ async function submitSurvey(){
   document.getElementById('btn-submit').innerText = "Enviar diagnóstico ✓";
   document.getElementById('btn-submit').disabled = false;
 
-  const lv=getLevel(Math.round(total));
+  const lv=getLevel(total);
   document.getElementById('thx-score').textContent=total;
   document.getElementById('thx-level-badge').innerHTML=
     `<span style="display:inline-block;background:${lv.colorL};color:${lv.color};padding:4px 14px;border-radius:20px;font-size:13px;font-weight:600">${lv.name}</span>`;
@@ -529,7 +498,7 @@ async function submitSurvey(){
     bars+=`<div style="margin-bottom:9px">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">
         <span style="font-size:12px;font-weight:500;color:#001640">${ICONS[i]} ${dim.name}</span>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;color:${dim.color}">Promedio: ${dimScores[i]}/5</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;color:${dim.color}">${dimScores[i]}/5</span>
       </div>
       <div style="height:6px;background:#EEF3FA;border-radius:3px;overflow:hidden">
         <div style="height:100%;width:${pct}%;background:${dim.color};border-radius:3px"></div>
@@ -618,7 +587,7 @@ function buildRadar(avgDims){
   const ldots=dpts.map(([x,y],i)=>`<circle cx="${x}" cy="${y}" r="4.5" fill="${DIMS[i].color}" stroke="#fff" stroke-width="1.5"/>`).join('');
   const lvals=dpts.map(([x,y],i)=>`<text x="${x}" y="${y-8}" font-size="10" fill="${DIMS[i].color}" font-family="Barlow Condensed,sans-serif" font-weight="700" text-anchor="middle">${avgDims[i].toFixed(1)}</text>`).join('');
   const lblpos=[[cx-28,cy-r-8],[cx+r+5,cy+4],[cx-20,cy+r+14],[cx-r-64,cy+4]];
-  const lblNames=['Decisiones','Visión Grupo','Actuar','Despliegue'];
+  const lblNames=['Decisiones','Esfuerzos','Visión','Despliegue'];
   const lbls=lblNames.map((l,i)=>`<text x="${lblpos[i][0]}" y="${lblpos[i][1]}" font-size="10" fill="#3D5470" font-family="Barlow,sans-serif" font-weight="500">${ICONS[i]} ${l}</text>`).join('');
   return `<svg viewBox="0 0 240 236" style="display:block;margin:0 auto;width:100%;max-width:240px">${grid}${axes}<polygon points="${dpoly}" fill="${DIMS[0].color}" fill-opacity=".12" stroke="${DIMS[0].color}" stroke-width="2"/>${ldots}${lvals}${lbls}</svg>`;
 }
