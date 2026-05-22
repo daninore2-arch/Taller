@@ -1,12 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Consultas - EPM</title>
+    <title>Buzón de Preguntas - EPM</title>
     <style>
-        /* Paleta de colores corporativos */
+        /* Paleta de colores corporativos de EPM */
         :root {
             --epm-green: #82C341;      /* Verde EPM */
             --epm-blue: #002B49;       /* Azul oscuro corporativo */
@@ -68,7 +67,8 @@
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
             width: 100%;
             padding: 12px;
             border: 1px solid #dcdcdc;
@@ -78,14 +78,20 @@
             font-family: inherit;
             transition: all 0.3s ease;
             background-color: #fcfcfc;
+            color: var(--text-color);
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--epm-light-blue);
             background-color: #ffffff;
             box-shadow: 0 0 0 3px rgba(0, 164, 228, 0.15);
+        }
+
+        .form-group select {
+            cursor: pointer;
         }
 
         .form-group textarea {
@@ -93,7 +99,7 @@
             min-height: 120px;
         }
 
-        .submit-btn {
+        .submit-btn, .reset-btn {
             width: 100%;
             padding: 14px;
             background-color: var(--epm-green);
@@ -108,14 +114,50 @@
         }
 
         .submit-btn:hover {
-            background-color: #72ab39; /* Verde ligeramente más oscuro */
+            background-color: #72ab39;
         }
 
-        .submit-btn:active {
+        .submit-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .submit-btn:active, .reset-btn:active {
             transform: translateY(1px);
         }
+
+        .reset-btn {
+            background-color: var(--epm-blue);
+            margin-top: 20px;
+        }
+
+        .reset-btn:hover {
+            background-color: #001f35;
+        }
+
+        #successMessage {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #successMessage h3 {
+            color: var(--epm-green);
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+
+        #successMessage p {
+            color: #555;
+            font-size: 1.1em;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         
-        /* Decoración sutil */
         .decoration-bar {
             height: 4px;
             background: linear-gradient(90deg, var(--epm-blue) 0%, var(--epm-light-blue) 100%);
@@ -128,20 +170,28 @@
 
     <div class="form-container">
         <div class="form-header">
-            <h2>Buzón de Inquietudes</h2>
-            <p>Por favor, ingresa tus datos para formular tu pregunta.</p>
+            <h2>Buzón de Preguntas</h2>
+            <p id="subtitulo">Por favor, ingresa tus datos para formular tu pregunta.</p>
         </div>
         
-        <!-- Cambia el '#' por la URL o script de destino si vas a procesar los datos (ej. un Google Script o PHP) -->
-        <form action="#" method="POST">
+        <form id="questionForm">
             <div class="form-group">
                 <label for="nombre">Nombre completo</label>
-                <input type="text" id="nombre" name="nombre" required placeholder="Ej: Jose Daniel Jurado">
+                <input type="text" id="nombre" name="nombre" required placeholder="Ej: Juan Pérez">
             </div>
 
             <div class="form-group">
-                <label for="dependencia">Empresa / Dependencia</label>
-                <input type="text" id="dependencia" name="dependencia" required placeholder="Ej: Transmisión y Distribución">
+                <label for="negocio">Negocio</label>
+                <select id="negocio" name="negocio" required>
+                    <option value="" disabled selected>Selecciona el negocio...</option>
+                    <option value="Generación">Generación</option>
+                    <option value="Trasmisión y Distribución">Trasmisión y Distribución</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="dependencia">Dependencia</label>
+                <input type="text" id="dependencia" name="dependencia" required placeholder="Ej: Planeación">
             </div>
 
             <div class="form-group">
@@ -149,11 +199,77 @@
                 <textarea id="pregunta" name="pregunta" required placeholder="Redacta tu pregunta aquí..."></textarea>
             </div>
 
-            <button type="submit" class="submit-btn">Enviar Pregunta</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Enviar Pregunta</button>
         </form>
+
+        <div id="successMessage">
+            <h3>¡Tu pregunta fue registrada!</h3>
+            <p>¿Quieres realizar otra pregunta?</p>
+            <button id="btnNuevaPregunta" class="reset-btn">Sí, realizar otra pregunta</button>
+        </div>
         
         <div class="decoration-bar"></div>
     </div>
+
+    <script>
+        const form = document.getElementById('questionForm');
+        const successMessage = document.getElementById('successMessage');
+        const subtitulo = document.getElementById('subtitulo');
+        const btnNuevaPregunta = document.getElementById('btnNuevaPregunta');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // URL actualizada de Google Apps Script
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzh38Sm6BWTFd-wFOY647LUV1pKpNBDZHEjmivd0_5D5SwPk0fcud6YdzAZb_2yK5Seeg/exec';
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            // Bloquear el botón para evitar doble envío
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+
+            // Formatear los datos como URL encoded para asegurar la lectura en e.parameter
+            const formData = new FormData(form);
+            const searchParams = new URLSearchParams();
+            
+            for (const pair of formData) {
+                searchParams.append(pair[0], pair[1]);
+            }
+
+            // Enviar datos a Google Sheets usando Fetch API
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors', // Evita bloqueos por CORS corporativos
+                body: searchParams.toString(),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(() => {
+                // Éxito: Ocultar formulario y mostrar confirmación
+                form.style.display = 'none';
+                subtitulo.style.display = 'none';
+                successMessage.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Error al enviar:', error);
+                alert('Ocurrió un problema de red al intentar registrar la pregunta.');
+            })
+            .finally(() => {
+                // Restaurar el estado original del botón
+                submitBtn.textContent = 'Enviar Pregunta';
+                submitBtn.disabled = false;
+            });
+        });
+
+        // Evento para limpiar y reiniciar el formulario
+        btnNuevaPregunta.addEventListener('click', function() {
+            form.reset();
+            successMessage.style.display = 'none';
+            form.style.display = 'block';
+            subtitulo.style.display = 'block';
+        });
+    </script>
 
 </body>
 </html>
